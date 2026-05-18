@@ -10,13 +10,15 @@ An digital bank for studying
 - [ms-auth](./ms-auth/README.md)
 - [ms-customer](./ms-customer/README.md)
 - [ms-account](./ms-account/README.md)
+- [ms-kyc](./ms-kyc/README.md)
 
 ## Módulos
 - [contracts](./contracts/README.md)
 
 
 
-
+## Onboarding Overview
+![alt text](./docs/image.png)
 
 
 

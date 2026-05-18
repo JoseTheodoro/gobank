@@ -6,5 +6,6 @@ use (
 	./ms-api-gateway
 	./ms-auth
 	./ms-customer
+	./ms-kyc
 	./ms-onboarding
 )
