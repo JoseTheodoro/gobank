@@ -3,22 +3,23 @@ package main
 import (
 	"context"
 	"fmt"
-	pb "gobank/contracts/pb/kyc"
 	"log"
 	"net"
 	"os"
 
 	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
+
+	pb "gobank/contracts/pb/auth"
 )
 
 type Server struct {
-	pb.UnimplementedKYCServer
+	pb.UnimplementedAuthServer
 }
 
-func (s *Server) StartKYC(ctx context.Context, in *pb.StartKYCRequest) (*pb.StartKYCResponse, error) {
-	return &pb.StartKYCResponse{
-		B: fmt.Sprintf("%s, hello from ms-kyc", in.GetName()),
+func (s *Server) CreateCredentials(ctx context.Context, in *pb.AuthRequest) (*pb.AuthResponse, error) {
+	return &pb.AuthResponse{
+		B: fmt.Sprintf("%s, hello from ms-auth", in.GetName()),
 	}, nil
 }
 
@@ -30,12 +31,12 @@ func main() {
 
 	conn, err := net.Listen("tcp", os.Getenv("ADDR_LISTEN"))
 	if err != nil {
-		log.Fatalf("error on connect to tcp: %v", err)
+		log.Fatalf("error on connect tcp: %v", err)
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterKYCServer(s, &Server{})
-	fmt.Printf("ms-kyc: gRPC server started at localhost%s\n", os.Getenv("ADDR_LISTEN"))
+	pb.RegisterAuthServer(s, &Server{})
+	fmt.Printf("ms-auth: gRPC server started at localhost%v\n", os.Getenv("ADDR_LISTEN"))
 	if err := s.Serve(conn); err != nil {
 		log.Fatalf("error on grpc server: %v", err)
 	}

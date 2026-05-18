@@ -47,7 +47,7 @@ func main() {
 
 	mux.HandleFunc("POST /api/v1/onboarding", h.handleOnboarding)
 
-	fmt.Printf("http sever is running at localhost%s\n", os.Getenv("ADDR_LISTEN"))
+	fmt.Printf("ms-api-gateway: http server started at localhost%s\n", os.Getenv("ADDR_LISTEN"))
 
 	go func() {
 		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {

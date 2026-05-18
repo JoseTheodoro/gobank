@@ -41,7 +41,7 @@ func main() {
 
 	s := grpc.NewServer()
 	pb.RegisterOnboardingServer(s, &Server{})
-	fmt.Printf("gRPC server started at localhost%s", os.Getenv("ADDR_LISTEN"))
+	fmt.Printf("ms-onboarding: gRPC server started at localhost%s", os.Getenv("ADDR_LISTEN"))
 	if err := s.Serve(server); err != nil {
 		log.Fatalf("error on grpc server: %v\n", err)
 	}
