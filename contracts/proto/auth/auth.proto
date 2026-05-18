@@ -1,0 +1,17 @@
+syntax="proto3";
+
+package auth;
+
+option go_package = "gobank/contracts/pb/auth";
+
+service Auth {
+    rpc CreateCredentials(AuthRequest) returns (AuthResponse);
+}
+
+message AuthRequest {
+    string name = 1;
+}
+
+message AuthResponse {
+    string b = 1;
+}

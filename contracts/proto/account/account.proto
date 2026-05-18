@@ -1,0 +1,18 @@
+syntax="proto3";
+
+package account;
+
+option go_package = "gobank/contracts/pb/account";
+
+service Account {
+ rpc CreateAccount (AccountRequest) returns (AccountResponse);
+}
+
+message AccountRequest {
+    string a = 1;
+}
+
+message AccountResponse {
+    string b = 1;
+}
+
