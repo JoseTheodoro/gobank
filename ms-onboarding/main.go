@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"fmt"
-	pb "gobank/contracts/pb/onboarding"
 	"log"
 	"net"
 	"os"
 
 	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
+
+	pb "gobank/contracts/pb/onboarding"
 )
 
 type Server struct {

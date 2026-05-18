@@ -3,8 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	pb "gobank/contracts/pb/onboarding"
 	"net/http"
+
+	pb "gobank/contracts/pb/onboarding"
 )
 
 type Handle struct {
