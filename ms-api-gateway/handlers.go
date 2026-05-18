@@ -1,7 +1,7 @@
 package main
 
 import (
-	"context"
+	"encoding/json"
 	"fmt"
 	pb "gobank/contracts/pb/onboarding"
 	"net/http"
@@ -17,18 +17,11 @@ func NewHandle(ob pb.OnboardingClient) *Handle {
 	}
 }
 
-func (h *Handle) handleOnboarding(w http.ResponseWriter, _ *http.Request) {
+func (h *Handle) handleOnboarding(w http.ResponseWriter, r *http.Request) {
 
-	startingOnboardingRequest := pb.OnboardingRequest{
-		M: "starting onboarding from api-gateway",
-	}
-	res, err := h.onboardingClient.StartOnboarding(context.Background(), &startingOnboardingRequest)
-	if err != nil {
-		fmt.Printf("cannot send request for starting onboarding: %v", err)
-		return
-	}
+	var obRequest OnboardingRequest
+	json.NewDecoder(r.Body).Decode(&obRequest)
 
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(res.GetA()))
+	fmt.Printf("OnboardingRequest: %#v", obRequest)
 
 }

@@ -18,13 +18,15 @@ type Server struct {
 
 func (s *Server) StartOnboarding(ctx context.Context, in *pb.OnboardingRequest) (*pb.OnboardingResponse, error) {
 
-	fmt.Printf("gRPC request received: %s\n", in.String())
+	// request to ms-customer
+	// request to ms-auth
+	// request to ms-account
+	// request to ms-kyc
 
-	msg := fmt.Sprintf("%s, %s", in.GetM(), "Estou respondendo do servidor")
+	// instanciar clients no main para ms-customer, ms-auth, ms-account, ms-kyc
+	// definir protos primeira versão
 
-	return &pb.OnboardingResponse{
-		A: msg,
-	}, nil
+	return nil, nil
 }
 
 func main() {
