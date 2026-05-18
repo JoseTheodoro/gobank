@@ -1,0 +1,17 @@
+syntax="proto3";
+
+package kyc;
+
+option go_package = "gobank/contracts/pb/kyc";
+
+service KYC {
+    rpc StartKYC (StartKYCRequest) returns (StartKYCResponse);
+}
+
+message StartKYCRequest {
+    string name = 1;
+}
+
+message StartKYCResponse {
+    string b = 1;
+}

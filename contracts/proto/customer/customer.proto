@@ -1,0 +1,18 @@
+syntax="proto3";
+
+package customer;
+
+option go_package = "gobank/contracts/pb/customer";
+
+service Customer {
+    rpc CreateCustomer(CreateCustomerRequest) returns (CreateCustomerResponse);
+}
+
+
+message CreateCustomerRequest {
+    string name = 1;
+}
+
+message CreateCustomerResponse {
+    string b = 1;
+}
