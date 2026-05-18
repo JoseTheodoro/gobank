@@ -12,6 +12,10 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+
+	pb "gobank/contracts/pb/onboarding"
 )
 
 func main() {
@@ -24,6 +28,14 @@ func main() {
 	ctxSignal, stop := signal.NotifyContext(ctx, syscall.SIGTERM)
 	defer stop()
 
+	// client onboarding
+	obConn, err := grpc.NewClient(os.Getenv("ONBOARDING_SERVER"), grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		log.Fatalf("error on connect onboarding server: %v", err)
+	}
+	defer obConn.Close()
+	obClient := pb.NewOnboardingClient(obConn)
+
 	mux := http.NewServeMux()
 
 	server := http.Server{
@@ -31,7 +43,9 @@ func main() {
 		Handler: mux,
 	}
 
-	mux.HandleFunc("POST /api/v1/onboarding", handleOnboarding)
+	h := NewHandle(obClient)
+
+	mux.HandleFunc("POST /api/v1/onboarding", h.handleOnboarding)
 
 	fmt.Printf("http sever is running at localhost%s\n", os.Getenv("ADDR_LISTEN"))
 
@@ -48,11 +62,5 @@ func main() {
 	if err := server.Shutdown(ctxTimemout); err != nil {
 		log.Default().Printf("error on graceful shutdown: %v", err)
 	}
-
-}
-
-func handleOnboarding(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Onboarding"))
 
 }
