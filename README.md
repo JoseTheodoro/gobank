@@ -1,6 +1,6 @@
 # Gobank
 
-An digital bank for studying
+A digital bank for studying
 
 
 

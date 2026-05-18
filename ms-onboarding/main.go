@@ -18,6 +18,8 @@ type Server struct {
 
 func (s *Server) StartOnboarding(ctx context.Context, in *pb.OnboardingRequest) (*pb.OnboardingResponse, error) {
 
+	fmt.Printf("gRPC request received: %s\n", in.String())
+
 	msg := fmt.Sprintf("%s, %s", in.GetM(), "Estou respondendo do servidor")
 
 	return &pb.OnboardingResponse{
