@@ -8,4 +8,5 @@ use (
 	./ms-customer
 	./ms-kyc
 	./ms-onboarding
+	./pkg
 )

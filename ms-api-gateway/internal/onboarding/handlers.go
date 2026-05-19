@@ -1,8 +1,9 @@
-package main
+package onboarding
 
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	pb "gobank/contracts/pb/onboarding"
@@ -18,25 +19,27 @@ func NewHandle(ob pb.OnboardingClient) *Handle {
 	}
 }
 
-func (h *Handle) handleOnboarding(w http.ResponseWriter, r *http.Request) {
+func (h *Handle) Start(w http.ResponseWriter, r *http.Request) {
 
-	var obRequest OnboardingRequestt
-	json.NewDecoder(r.Body).Decode(&obRequest)
+	var onboardingRequest Request
+	json.NewDecoder(r.Body).Decode(&onboardingRequest)
+
+	fmt.Println("request received: ", onboardingRequest)
 
 	req := pb.OnboardingRequest{
 		CustomerInfo: &pb.CustomerInfo{
-			Name:     obRequest.CustomerInfo.Name,
-			Document: obRequest.CustomerInfo.Document,
+			Name:     onboardingRequest.CustomerInfo.Name,
+			Document: onboardingRequest.CustomerInfo.Document,
 			Type:     string(INDIVIDUAL),
 		},
 		AccountCredentials: &pb.AccountCredentials{
-			Email:    obRequest.AccountCredentials.Email,
-			Passowrd: obRequest.AccountCredentials.Password,
+			Email:    onboardingRequest.AccountCredentials.Email,
+			Passowrd: onboardingRequest.AccountCredentials.Password,
 		},
 		DeviceInfo: &pb.DeviceInfo{
-			IPAddr:    obRequest.DeviceInfo.IPAddr,
-			UserAgent: obRequest.DeviceInfo.UserAgent,
-			DeviceID:  obRequest.DeviceInfo.DeviceID,
+			IPAddr:    onboardingRequest.DeviceInfo.IPAddr,
+			UserAgent: onboardingRequest.DeviceInfo.UserAgent,
+			DeviceID:  onboardingRequest.DeviceInfo.DeviceID,
 		},
 	}
 
