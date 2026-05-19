@@ -11,8 +11,11 @@ service Customer {
 
 message CreateCustomerRequest {
     string name = 1;
+    string email = 2;
+    string document = 3;
+    string type = 4;
 }
 
 message CreateCustomerResponse {
-    string b = 1;
+    string customer_id = 1;
 }

@@ -19,9 +19,14 @@ func NewCustomerService(c pbCustomer.CustomerClient) *CustomerService {
 	}
 }
 
-func (c *CustomerService) CreateCustomer(ctx context.Context, input domain.CustomerInput) (*domain.Customer, error) {
+func (c *CustomerService) CreateCustomer(ctx context.Context, input domain.StartOnboardingInput) (*domain.Customer, error) {
 
-	createCustomerRequest := pbCustomer.CreateCustomerRequest{Name: input.Name}
+	createCustomerRequest := pbCustomer.CreateCustomerRequest{
+		Name:     input.Customer.Name,
+		Email:    input.Credentials.Email,
+		Document: input.Customer.Document,
+		Type:     input.Customer.Type,
+	}
 
 	response, err := c.customerClient.CreateCustomer(ctx, &createCustomerRequest)
 	if err != nil {
@@ -29,8 +34,7 @@ func (c *CustomerService) CreateCustomer(ctx context.Context, input domain.Custo
 	}
 
 	customer := &domain.Customer{
-		CustomerID: uuid.New(),
-		Name:       response.GetB(),
+		CustomerID: uuid.MustParse(response.GetCustomerId()),
 	}
 
 	return customer, nil

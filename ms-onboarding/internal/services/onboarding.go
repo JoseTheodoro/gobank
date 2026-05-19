@@ -43,7 +43,7 @@ func (o *OnboardingService) Run(ctx context.Context, input domain.StartOnboardin
 	fmt.Println("ready to request ms-customer")
 
 	// call ms-customer
-	customer, err := o.CustomerService.CreateCustomer(ctx, input.Customer)
+	customer, err := o.CustomerService.CreateCustomer(ctx, input)
 	if err != nil {
 		return fmt.Errorf("error on creating customer > %w ", err)
 	}

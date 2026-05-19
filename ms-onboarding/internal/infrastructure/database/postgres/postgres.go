@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"gobank/ms-onboarding/internal/domain"
-	"gobank/ms-onboarding/internal/infraestructure/database/postgres/queries"
+	"gobank/ms-onboarding/internal/infrastructure/database/postgres/queries"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )

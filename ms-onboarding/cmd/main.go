@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"gobank/ms-onboarding/internal/infraestructure/database/postgres"
-	"gobank/ms-onboarding/internal/infraestructure/handler"
+	"gobank/ms-onboarding/internal/infrastructure/database/postgres"
+	"gobank/ms-onboarding/internal/infrastructure/handler"
 	"gobank/ms-onboarding/internal/services"
 	"gobank/pkg/database"
 	"log"

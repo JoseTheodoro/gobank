@@ -24,6 +24,9 @@ const (
 type CreateCustomerRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	Document      string                 `protobuf:"bytes,3,opt,name=document,proto3" json:"document,omitempty"`
+	Type          string                 `protobuf:"bytes,4,opt,name=type,proto3" json:"type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -65,9 +68,30 @@ func (x *CreateCustomerRequest) GetName() string {
 	return ""
 }
 
+func (x *CreateCustomerRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *CreateCustomerRequest) GetDocument() string {
+	if x != nil {
+		return x.Document
+	}
+	return ""
+}
+
+func (x *CreateCustomerRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
 type CreateCustomerResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	B             string                 `protobuf:"bytes,1,opt,name=b,proto3" json:"b,omitempty"`
+	CustomerId    string                 `protobuf:"bytes,1,opt,name=customer_id,json=customerId,proto3" json:"customer_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -102,9 +126,9 @@ func (*CreateCustomerResponse) Descriptor() ([]byte, []int) {
 	return file_customer_customer_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *CreateCustomerResponse) GetB() string {
+func (x *CreateCustomerResponse) GetCustomerId() string {
 	if x != nil {
-		return x.B
+		return x.CustomerId
 	}
 	return ""
 }
@@ -113,11 +137,15 @@ var File_customer_customer_proto protoreflect.FileDescriptor
 
 const file_customer_customer_proto_rawDesc = "" +
 	"\n" +
-	"\x17customer/customer.proto\x12\bcustomer\"+\n" +
+	"\x17customer/customer.proto\x12\bcustomer\"q\n" +
 	"\x15CreateCustomerRequest\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\"&\n" +
-	"\x16CreateCustomerResponse\x12\f\n" +
-	"\x01b\x18\x01 \x01(\tR\x01b2_\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x12\x1a\n" +
+	"\bdocument\x18\x03 \x01(\tR\bdocument\x12\x12\n" +
+	"\x04type\x18\x04 \x01(\tR\x04type\"9\n" +
+	"\x16CreateCustomerResponse\x12\x1f\n" +
+	"\vcustomer_id\x18\x01 \x01(\tR\n" +
+	"customerId2_\n" +
 	"\bCustomer\x12S\n" +
 	"\x0eCreateCustomer\x12\x1f.customer.CreateCustomerRequest\x1a .customer.CreateCustomerResponseB\x1eZ\x1cgobank/contracts/pb/customerb\x06proto3"
 

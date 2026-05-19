@@ -17,6 +17,7 @@ func Connect(ctx context.Context, databaseDSN string) (*pgxpool.Pool, error) {
 	}
 
 	if err := conn.Ping(ctx); err != nil {
+		conn.Close()
 		return nil, err
 	}
 
