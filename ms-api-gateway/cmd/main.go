@@ -16,6 +16,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 
 	pb "gobank/contracts/pb/onboarding"
+	"gobank/ms-api-gateway/internal/onboarding"
 )
 
 func main() {
@@ -43,9 +44,9 @@ func main() {
 		Handler: mux,
 	}
 
-	h := NewHandle(obClient)
+	h := onboarding.NewHandle(obClient)
 
-	mux.HandleFunc("POST /api/v1/onboarding", h.handleOnboarding)
+	mux.HandleFunc("POST /api/v1/onboarding", h.Start)
 
 	fmt.Printf("ms-api-gateway: http server started at localhost%s\n", os.Getenv("ADDR_LISTEN"))
 
