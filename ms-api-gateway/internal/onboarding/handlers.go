@@ -3,6 +3,7 @@ package onboarding
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	pb "gobank/contracts/pb/onboarding"
@@ -22,6 +23,8 @@ func (h *Handle) Start(w http.ResponseWriter, r *http.Request) {
 
 	var onboardingRequest Request
 	json.NewDecoder(r.Body).Decode(&onboardingRequest)
+
+	fmt.Println("request received: ", onboardingRequest)
 
 	req := pb.OnboardingRequest{
 		CustomerInfo: &pb.CustomerInfo{

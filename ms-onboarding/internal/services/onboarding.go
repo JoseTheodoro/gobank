@@ -41,9 +41,19 @@ func (o *OnboardingService) Run(ctx context.Context, input domain.StartOnboardin
 	}
 	fmt.Println("[RUN]", "onboardingprocess=", onboardingProcess)
 	fmt.Println("ready to request ms-customer")
+
 	// call ms-customer
+	customer, err := o.CustomerService.CreateCustomer(ctx, input.Customer)
+	if err != nil {
+		return fmt.Errorf("error on creating customer > %w ", err)
+	}
+	fmt.Println("customer=", customer)
 	// update onboarding status to CUSTOMER_CREATED
+	if err := o.Repository.SetCustomer(ctx, onboardingProcess, customer, domain.CustomerCreated); err != nil {
+		return fmt.Errorf("error on set customer > %w ", err)
+	}
 	// call ms-auth
+	o.AuthService.CreateCredentials(ctx, input.Credentials, customer)
 	// update onboarding status to CREDENTIAL_CREATED
 	// call ms-account
 	// update onboarding status to ACCOUNT_CREATED

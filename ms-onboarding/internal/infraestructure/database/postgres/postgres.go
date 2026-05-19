@@ -43,7 +43,34 @@ func (o *OnboardingPostgres) Create(ctx context.Context, op domain.OnboardingPro
 	return d, nil
 }
 
-func (o *OnboardingPostgres) Update(ctx context.Context) error {
+func (o *OnboardingPostgres) SetCustomer(ctx context.Context, onboarding *domain.OnboardingProcess, customer *domain.Customer, newStatus domain.OnboardingStatus) error {
+
+	c := queries.SetCustomerOnboardingProcessParams{
+		CustomerID: &customer.CustomerID,
+		Status:     string(newStatus),
+		ID:         onboarding.ID,
+	}
+
+	err := o.query.SetCustomerOnboardingProcess(ctx, c)
+	if err != nil {
+		return fmt.Errorf("error on setting customer on onboarding process > %w", err)
+	}
+	return nil
+}
+
+func (o *OnboardingPostgres) SetAccount(ctx context.Context, onboarding *domain.OnboardingProcess, account *domain.Account, newStatus domain.OnboardingStatus) error {
+
+	a := queries.SetAccountOnboardingProcessParams{
+		AccountID: account.AccountID,
+		Status:    string(newStatus),
+		ID:        onboarding.ID,
+	}
+
+	err := o.query.SetAccountOnboardingProcess(ctx, a)
+	if err != nil {
+		return fmt.Errorf("error on set account on onboarding process > %w", err)
+	}
+
 	return nil
 }
 

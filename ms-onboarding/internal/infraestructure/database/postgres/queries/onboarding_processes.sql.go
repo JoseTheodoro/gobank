@@ -46,3 +46,43 @@ func (q *Queries) CreateOnboardingProcess(ctx context.Context, arg CreateOnboard
 	)
 	return i, err
 }
+
+const setAccountOnboardingProcess = `-- name: SetAccountOnboardingProcess :exec
+UPDATE onboarding_processes
+SET update_at = now(),
+    account_id = $1,
+    status = $2
+WHERE id = $3
+    RETURNING id, onboarding_id, customer_id, account_id, email, document, status, created_at, updated_at
+`
+
+type SetAccountOnboardingProcessParams struct {
+	AccountID *uuid.UUID
+	Status    string
+	ID        int64
+}
+
+func (q *Queries) SetAccountOnboardingProcess(ctx context.Context, arg SetAccountOnboardingProcessParams) error {
+	_, err := q.db.Exec(ctx, setAccountOnboardingProcess, arg.AccountID, arg.Status, arg.ID)
+	return err
+}
+
+const setCustomerOnboardingProcess = `-- name: SetCustomerOnboardingProcess :exec
+UPDATE onboarding_processes
+SET updated_at = now(),
+    customer_id = $1,
+    status = $2
+WHERE id = $3
+    RETURNING id, onboarding_id, customer_id, account_id, email, document, status, created_at, updated_at
+`
+
+type SetCustomerOnboardingProcessParams struct {
+	CustomerID *uuid.UUID
+	Status     string
+	ID         int64
+}
+
+func (q *Queries) SetCustomerOnboardingProcess(ctx context.Context, arg SetCustomerOnboardingProcessParams) error {
+	_, err := q.db.Exec(ctx, setCustomerOnboardingProcess, arg.CustomerID, arg.Status, arg.ID)
+	return err
+}

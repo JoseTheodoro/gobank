@@ -6,11 +6,11 @@ import (
 	"gobank/ms-onboarding/internal/infraestructure/database/postgres"
 	"gobank/ms-onboarding/internal/infraestructure/handler"
 	"gobank/ms-onboarding/internal/services"
+	"gobank/pkg/database"
 	"log"
 	"net"
 	"os"
 
-	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -55,7 +55,7 @@ func main() {
 		log.Fatalf("error on ms-kyc client: %v", err)
 	}
 
-	conn, err := pgxpool.New(context.Background(), os.Getenv("DATABASE_DSN"))
+	conn, err := database.Connect(context.Background(), os.Getenv("DATABASE_DSN"))
 	if err != nil {
 		log.Fatalf("error on connect postgres: %v", err)
 	}
