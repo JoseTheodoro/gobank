@@ -22,10 +22,12 @@ const (
 )
 
 type OnboardingRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	M             string                 `protobuf:"bytes,1,opt,name=m,proto3" json:"m,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	AccountCredentials *AccountCredentials    `protobuf:"bytes,1,opt,name=AccountCredentials,proto3" json:"AccountCredentials,omitempty"`
+	CustomerInfo       *CustomerInfo          `protobuf:"bytes,2,opt,name=CustomerInfo,proto3" json:"CustomerInfo,omitempty"`
+	DeviceInfo         *DeviceInfo            `protobuf:"bytes,3,opt,name=DeviceInfo,proto3" json:"DeviceInfo,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
 func (x *OnboardingRequest) Reset() {
@@ -58,16 +60,30 @@ func (*OnboardingRequest) Descriptor() ([]byte, []int) {
 	return file_onboarding_onboarding_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *OnboardingRequest) GetM() string {
+func (x *OnboardingRequest) GetAccountCredentials() *AccountCredentials {
 	if x != nil {
-		return x.M
+		return x.AccountCredentials
 	}
-	return ""
+	return nil
+}
+
+func (x *OnboardingRequest) GetCustomerInfo() *CustomerInfo {
+	if x != nil {
+		return x.CustomerInfo
+	}
+	return nil
+}
+
+func (x *OnboardingRequest) GetDeviceInfo() *DeviceInfo {
+	if x != nil {
+		return x.DeviceInfo
+	}
+	return nil
 }
 
 type OnboardingResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	A             string                 `protobuf:"bytes,1,opt,name=a,proto3" json:"a,omitempty"`
+	Message       string                 `protobuf:"bytes,1,opt,name=Message,proto3" json:"Message,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -102,9 +118,181 @@ func (*OnboardingResponse) Descriptor() ([]byte, []int) {
 	return file_onboarding_onboarding_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *OnboardingResponse) GetA() string {
+func (x *OnboardingResponse) GetMessage() string {
 	if x != nil {
-		return x.A
+		return x.Message
+	}
+	return ""
+}
+
+type AccountCredentials struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Email         string                 `protobuf:"bytes,1,opt,name=Email,proto3" json:"Email,omitempty"`
+	Passowrd      string                 `protobuf:"bytes,2,opt,name=Passowrd,proto3" json:"Passowrd,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AccountCredentials) Reset() {
+	*x = AccountCredentials{}
+	mi := &file_onboarding_onboarding_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AccountCredentials) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AccountCredentials) ProtoMessage() {}
+
+func (x *AccountCredentials) ProtoReflect() protoreflect.Message {
+	mi := &file_onboarding_onboarding_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AccountCredentials.ProtoReflect.Descriptor instead.
+func (*AccountCredentials) Descriptor() ([]byte, []int) {
+	return file_onboarding_onboarding_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *AccountCredentials) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *AccountCredentials) GetPassowrd() string {
+	if x != nil {
+		return x.Passowrd
+	}
+	return ""
+}
+
+type CustomerInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
+	Document      string                 `protobuf:"bytes,2,opt,name=Document,proto3" json:"Document,omitempty"`
+	Type          string                 `protobuf:"bytes,3,opt,name=Type,proto3" json:"Type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CustomerInfo) Reset() {
+	*x = CustomerInfo{}
+	mi := &file_onboarding_onboarding_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CustomerInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CustomerInfo) ProtoMessage() {}
+
+func (x *CustomerInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_onboarding_onboarding_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CustomerInfo.ProtoReflect.Descriptor instead.
+func (*CustomerInfo) Descriptor() ([]byte, []int) {
+	return file_onboarding_onboarding_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *CustomerInfo) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CustomerInfo) GetDocument() string {
+	if x != nil {
+		return x.Document
+	}
+	return ""
+}
+
+func (x *CustomerInfo) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+type DeviceInfo struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	IPAddr        string                 `protobuf:"bytes,1,opt,name=IPAddr,proto3" json:"IPAddr,omitempty"`
+	UserAgent     string                 `protobuf:"bytes,2,opt,name=UserAgent,proto3" json:"UserAgent,omitempty"`
+	DeviceID      string                 `protobuf:"bytes,3,opt,name=DeviceID,proto3" json:"DeviceID,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeviceInfo) Reset() {
+	*x = DeviceInfo{}
+	mi := &file_onboarding_onboarding_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeviceInfo) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeviceInfo) ProtoMessage() {}
+
+func (x *DeviceInfo) ProtoReflect() protoreflect.Message {
+	mi := &file_onboarding_onboarding_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeviceInfo.ProtoReflect.Descriptor instead.
+func (*DeviceInfo) Descriptor() ([]byte, []int) {
+	return file_onboarding_onboarding_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *DeviceInfo) GetIPAddr() string {
+	if x != nil {
+		return x.IPAddr
+	}
+	return ""
+}
+
+func (x *DeviceInfo) GetUserAgent() string {
+	if x != nil {
+		return x.UserAgent
+	}
+	return ""
+}
+
+func (x *DeviceInfo) GetDeviceID() string {
+	if x != nil {
+		return x.DeviceID
 	}
 	return ""
 }
@@ -114,11 +302,27 @@ var File_onboarding_onboarding_proto protoreflect.FileDescriptor
 const file_onboarding_onboarding_proto_rawDesc = "" +
 	"\n" +
 	"\x1bonboarding/onboarding.proto\x12\n" +
-	"onboarding\"!\n" +
-	"\x11OnboardingRequest\x12\f\n" +
-	"\x01m\x18\x01 \x01(\tR\x01m\"\"\n" +
-	"\x12OnboardingResponse\x12\f\n" +
-	"\x01a\x18\x01 \x01(\tR\x01a2^\n" +
+	"onboarding\"\xd9\x01\n" +
+	"\x11OnboardingRequest\x12N\n" +
+	"\x12AccountCredentials\x18\x01 \x01(\v2\x1e.onboarding.AccountCredentialsR\x12AccountCredentials\x12<\n" +
+	"\fCustomerInfo\x18\x02 \x01(\v2\x18.onboarding.CustomerInfoR\fCustomerInfo\x126\n" +
+	"\n" +
+	"DeviceInfo\x18\x03 \x01(\v2\x16.onboarding.DeviceInfoR\n" +
+	"DeviceInfo\".\n" +
+	"\x12OnboardingResponse\x12\x18\n" +
+	"\aMessage\x18\x01 \x01(\tR\aMessage\"F\n" +
+	"\x12AccountCredentials\x12\x14\n" +
+	"\x05Email\x18\x01 \x01(\tR\x05Email\x12\x1a\n" +
+	"\bPassowrd\x18\x02 \x01(\tR\bPassowrd\"R\n" +
+	"\fCustomerInfo\x12\x12\n" +
+	"\x04Name\x18\x01 \x01(\tR\x04Name\x12\x1a\n" +
+	"\bDocument\x18\x02 \x01(\tR\bDocument\x12\x12\n" +
+	"\x04Type\x18\x03 \x01(\tR\x04Type\"^\n" +
+	"\n" +
+	"DeviceInfo\x12\x16\n" +
+	"\x06IPAddr\x18\x01 \x01(\tR\x06IPAddr\x12\x1c\n" +
+	"\tUserAgent\x18\x02 \x01(\tR\tUserAgent\x12\x1a\n" +
+	"\bDeviceID\x18\x03 \x01(\tR\bDeviceID2^\n" +
 	"\n" +
 	"Onboarding\x12P\n" +
 	"\x0fStartOnboarding\x12\x1d.onboarding.OnboardingRequest\x1a\x1e.onboarding.OnboardingResponseB Z\x1egobank/contracts/pb/onboardingb\x06proto3"
@@ -135,19 +339,25 @@ func file_onboarding_onboarding_proto_rawDescGZIP() []byte {
 	return file_onboarding_onboarding_proto_rawDescData
 }
 
-var file_onboarding_onboarding_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_onboarding_onboarding_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_onboarding_onboarding_proto_goTypes = []any{
 	(*OnboardingRequest)(nil),  // 0: onboarding.OnboardingRequest
 	(*OnboardingResponse)(nil), // 1: onboarding.OnboardingResponse
+	(*AccountCredentials)(nil), // 2: onboarding.AccountCredentials
+	(*CustomerInfo)(nil),       // 3: onboarding.CustomerInfo
+	(*DeviceInfo)(nil),         // 4: onboarding.DeviceInfo
 }
 var file_onboarding_onboarding_proto_depIdxs = []int32{
-	0, // 0: onboarding.Onboarding.StartOnboarding:input_type -> onboarding.OnboardingRequest
-	1, // 1: onboarding.Onboarding.StartOnboarding:output_type -> onboarding.OnboardingResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: onboarding.OnboardingRequest.AccountCredentials:type_name -> onboarding.AccountCredentials
+	3, // 1: onboarding.OnboardingRequest.CustomerInfo:type_name -> onboarding.CustomerInfo
+	4, // 2: onboarding.OnboardingRequest.DeviceInfo:type_name -> onboarding.DeviceInfo
+	0, // 3: onboarding.Onboarding.StartOnboarding:input_type -> onboarding.OnboardingRequest
+	1, // 4: onboarding.Onboarding.StartOnboarding:output_type -> onboarding.OnboardingResponse
+	4, // [4:5] is the sub-list for method output_type
+	3, // [3:4] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_onboarding_onboarding_proto_init() }
@@ -161,7 +371,7 @@ func file_onboarding_onboarding_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_onboarding_onboarding_proto_rawDesc), len(file_onboarding_onboarding_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

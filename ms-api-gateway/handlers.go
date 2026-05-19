@@ -2,9 +2,10 @@ package main
 
 import (
 	"context"
-	"fmt"
-	pb "gobank/contracts/pb/onboarding"
+	"encoding/json"
 	"net/http"
+
+	pb "gobank/contracts/pb/onboarding"
 )
 
 type Handle struct {
@@ -17,18 +18,35 @@ func NewHandle(ob pb.OnboardingClient) *Handle {
 	}
 }
 
-func (h *Handle) handleOnboarding(w http.ResponseWriter, _ *http.Request) {
+func (h *Handle) handleOnboarding(w http.ResponseWriter, r *http.Request) {
 
-	startingOnboardingRequest := pb.OnboardingRequest{
-		M: "starting onboarding from api-gateway",
+	var obRequest OnboardingRequestt
+	json.NewDecoder(r.Body).Decode(&obRequest)
+
+	req := pb.OnboardingRequest{
+		CustomerInfo: &pb.CustomerInfo{
+			Name:     obRequest.CustomerInfo.Name,
+			Document: obRequest.CustomerInfo.Document,
+			Type:     string(INDIVIDUAL),
+		},
+		AccountCredentials: &pb.AccountCredentials{
+			Email:    obRequest.AccountCredentials.Email,
+			Passowrd: obRequest.AccountCredentials.Password,
+		},
+		DeviceInfo: &pb.DeviceInfo{
+			IPAddr:    obRequest.DeviceInfo.IPAddr,
+			UserAgent: obRequest.DeviceInfo.UserAgent,
+			DeviceID:  obRequest.DeviceInfo.DeviceID,
+		},
 	}
-	res, err := h.onboardingClient.StartOnboarding(context.Background(), &startingOnboardingRequest)
+
+	res, err := h.onboardingClient.StartOnboarding(context.Background(), &req)
 	if err != nil {
-		fmt.Printf("cannot send request for starting onboarding: %v", err)
+		w.WriteHeader(400)
+		w.Write([]byte(err.Error()))
 		return
 	}
-
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(res.GetA()))
+	w.WriteHeader(200)
+	w.Write([]byte(res.Message))
 
 }

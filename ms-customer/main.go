@@ -18,7 +18,7 @@ type Server struct {
 }
 
 func (s *Server) CreateCustomer(ctx context.Context, in *pb.CreateCustomerRequest) (*pb.CreateCustomerResponse, error) {
-
+	fmt.Printf("request received: %s", in.String())
 	msg := fmt.Sprintf("%s, hello from ms-customer", in.GetName())
 
 	return &pb.CreateCustomerResponse{

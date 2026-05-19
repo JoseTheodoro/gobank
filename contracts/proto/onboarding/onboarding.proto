@@ -9,10 +9,29 @@ service Onboarding {
     rpc StartOnboarding (OnboardingRequest) returns (OnboardingResponse);
 
 }
+
 message OnboardingRequest {
-    string m = 1;
+    AccountCredentials AccountCredentials = 1;
+    CustomerInfo CustomerInfo = 2;
+    DeviceInfo DeviceInfo = 3;
 }
+
 message OnboardingResponse {
-    string a = 1;
+    string Message = 1;
+}
+
+message AccountCredentials {
+    string Email = 1;
+    string Passowrd = 2;
+}
+message CustomerInfo {
+    string Name = 1;
+    string Document = 2;
+    string Type = 3;
+}
+message DeviceInfo {
+    string IPAddr = 1;
+    string UserAgent = 2;
+    string DeviceID = 3;
 }
 
