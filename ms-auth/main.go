@@ -18,6 +18,7 @@ type Server struct {
 }
 
 func (s *Server) CreateCredentials(ctx context.Context, in *pb.AuthRequest) (*pb.AuthResponse, error) {
+	fmt.Printf("request received: %s", in.String())
 	return &pb.AuthResponse{
 		B: fmt.Sprintf("%s, hello from ms-auth", in.GetName()),
 	}, nil

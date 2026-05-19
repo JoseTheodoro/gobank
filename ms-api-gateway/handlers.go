@@ -1,8 +1,8 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	pb "gobank/contracts/pb/onboarding"
@@ -20,9 +20,33 @@ func NewHandle(ob pb.OnboardingClient) *Handle {
 
 func (h *Handle) handleOnboarding(w http.ResponseWriter, r *http.Request) {
 
-	var obRequest OnboardingRequest
+	var obRequest OnboardingRequestt
 	json.NewDecoder(r.Body).Decode(&obRequest)
 
-	fmt.Printf("OnboardingRequest: %#v", obRequest)
+	req := pb.OnboardingRequest{
+		CustomerInfo: &pb.CustomerInfo{
+			Name:     obRequest.CustomerInfo.Name,
+			Document: obRequest.CustomerInfo.Document,
+			Type:     string(INDIVIDUAL),
+		},
+		AccountCredentials: &pb.AccountCredentials{
+			Email:    obRequest.AccountCredentials.Email,
+			Passowrd: obRequest.AccountCredentials.Password,
+		},
+		DeviceInfo: &pb.DeviceInfo{
+			IPAddr:    obRequest.DeviceInfo.IPAddr,
+			UserAgent: obRequest.DeviceInfo.UserAgent,
+			DeviceID:  obRequest.DeviceInfo.DeviceID,
+		},
+	}
+
+	res, err := h.onboardingClient.StartOnboarding(context.Background(), &req)
+	if err != nil {
+		w.WriteHeader(400)
+		w.Write([]byte(err.Error()))
+		return
+	}
+	w.WriteHeader(200)
+	w.Write([]byte(res.Message))
 
 }

@@ -1,6 +1,6 @@
 package main
 
-type OnboardingRequest struct {
+type OnboardingRequestt struct {
 	AccountCredentials `json:"account_credentials"`
 	CustomerInfo       `json:"customer_info"`
 	DeviceInfo         `json:"device_info"`

@@ -17,6 +17,7 @@ type Server struct {
 }
 
 func (s *Server) StartKYC(ctx context.Context, in *pb.StartKYCRequest) (*pb.StartKYCResponse, error) {
+	fmt.Printf("request received: %s", in.String())
 	return &pb.StartKYCResponse{
 		B: fmt.Sprintf("%s, hello from ms-kyc", in.GetName()),
 	}, nil

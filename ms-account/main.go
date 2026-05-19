@@ -17,6 +17,7 @@ type Server struct {
 }
 
 func (s *Server) CreateAccount(ctx context.Context, in *pb.AccountRequest) (*pb.AccountResponse, error) {
+	fmt.Printf("request received: %s", in.String())
 	return &pb.AccountResponse{
 		B: fmt.Sprintf("%s, hello from ms-account", in.GetA()),
 	}, nil
